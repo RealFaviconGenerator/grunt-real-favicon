@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var fs = require('fs');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -22,27 +23,30 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
+function assertFileExists(file, test) {
+  test.ok(grunt.file.exists(file), 'File ' + file + ' does not exist');
+}
+
+function getFileSize(file) {
+  return fs.statSync(file).size;
+}
+
+function assertPicture(actual, expected, test) {
+  assertFileExists(actual, test);
+  assertFileExists(expected, test);
+  test.equal(getFileSize(actual), getFileSize(expected));
+}
+
+
 exports.real_favicon = {
-  setUp: function(done) {
-    // setup here if necessary
+  setUp: function(done, test) {
     done();
   },
-  default_options: function(test) {
-    test.expect(1);
+  screnario_1: function(test) {
+    test.expect(3);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    assertPicture("tmp/scenario_1/pics/favicon.ico", 'test/fixtures/favicon.ico', test);
 
     test.done();
-  },
-  custom_options: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-
-    test.done();
-  },
+  }
 };

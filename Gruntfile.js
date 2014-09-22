@@ -30,21 +30,11 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     real_favicon: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+      scenario_1: {
+        options: {},
+        src: 'test/fixtures/master_pic_1.png',
+        dest: 'tmp/scenario_1/pics',
+        html: ['test/fixtures/page1.html', 'test/fixtures/page2.html']
       }
     },
 
