@@ -22,7 +22,7 @@ module.exports.init = function(grunt) {
     return grunt.file.read(file, {encoding: null}).toString('base64');
   }
 
-  exports.generate_favicon = function(dest, completed) {
+  exports.generate_favicon = function(favicon_gneration_request, dest, callback) {
     if (! grunt.file.exists(dest)) {
       grunt.file.mkdir(dest);
     }
@@ -30,17 +30,7 @@ module.exports.init = function(grunt) {
     var client = new Client();
     var args = {
       data: {
-        "favicon_generation": {
-          "api_key": "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
-          "master_picture": {
-            "type": "inline",
-            "content": exports.file_to_base64('test/fixtures/sample_picture.png'),
-          },
-          "files_location": {
-            "type": "path",
-            "path": "/path/to/icons"
-          }
-        }
+        "favicon_generation": favicon_gneration_request
       },
       headers:{"Content-Type": "application/json"}
     };
@@ -51,7 +41,7 @@ module.exports.init = function(grunt) {
         response.pipe(parserStream).pipe(writeStream);
       });
       writeStream.on('close', function() {
-        completed(data, response);
+        callback(data.favicon_generation_result);
       });
     });
   }
