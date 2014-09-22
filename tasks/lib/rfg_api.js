@@ -18,6 +18,10 @@ module.exports.init = function(grunt) {
   var unzip = require('unzip');
   var fstream = require('fstream');
 
+  exports.file_to_base64 = function(file) {
+    return grunt.file.read(file, {encoding: null}).toString('base64');
+  }
+
   exports.generate_favicon = function(dest, completed) {
     if (! grunt.file.exists(dest)) {
       grunt.file.mkdir(dest);
@@ -29,8 +33,8 @@ module.exports.init = function(grunt) {
         "favicon_generation": {
           "api_key": "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
           "master_picture": {
-            "type": "url",
-            "url": "http://realfavicongenerator.net/demo_favicon.png",
+            "type": "inline",
+            "content": exports.file_to_base64('test/fixtures/sample_picture.png'),
           },
           "files_location": {
             "type": "path",

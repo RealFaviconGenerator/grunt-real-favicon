@@ -45,7 +45,7 @@ exports.real_favicon = {
   screnario_1: function(test) {
     test.expect(3);
 
-    assertPicture("tmp/scenario_1/pics/favicon.ico", 'test/fixtures/favicon.ico', test);
+    assertPicture("tmp/scenario_1/pics/favicon.ico", 'test/expected/favicon.ico', test);
 
     test.done();
   }
