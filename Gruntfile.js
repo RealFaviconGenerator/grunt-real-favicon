@@ -34,7 +34,16 @@ module.exports = function(grunt) {
         options: {},
         src: 'test/fixtures/master_pic_1.png',
         dest: 'tmp/scenario_1/pics',
-        html: ['test/fixtures/page1.html', 'test/fixtures/page2.html']
+        html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html']
+      }
+    },
+
+    // Copy HTML files (they are modified in place)
+    copy: {
+      scenario_1: {
+        files: [
+          {expand: true, cwd: 'test/fixtures', src: ['*.html'], dest: 'tmp/scenario_1/'}
+        ]
       }
     },
 
@@ -42,7 +51,6 @@ module.exports = function(grunt) {
     nodeunit: {
       tests: ['test/*_test.js']
     }
-
   });
 
   // Actually load this plugin's task(s).
@@ -52,12 +60,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'real_favicon', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'copy', 'real_favicon', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
-
 };
