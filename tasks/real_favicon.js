@@ -45,24 +45,14 @@ module.exports = function(grunt) {
     var done = this.async();
     var html_files = this.data.html;
 
-    rfg_api.generate_favicon({
-        api_key: "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
-        master_picture: {
-          type: "inline",
-          content: rfg_api.file_to_base64('test/fixtures/sample_picture.png'),
-        },
-        files_location: {
-          type: "path",
-          path: "/path/to/icons"
-        },
-        favicon_design: {
-          ios: {},
-          windows: {
-            picture_aspect: 'white_silhouette',
-            background_color: '#123456'
-          }
-        }
-      }, this.data.dest, function(favicon) {
+    // Complete favicon spec
+    var favicon_spec = this.data.favicon;
+    favicon_spec.api_key = '87d5cd739b05c00416c4a19cd14a8bb5632ea563';
+    if (favicon_spec.master_picture.content) {
+      favicon_spec.master_picture.content = rfg_api.file_to_base64(favicon_spec.master_picture.content);
+    }
+
+    rfg_api.generate_favicon(favicon_spec, this.data.dest, function(favicon) {
         html_files.forEach(function(file) {
           grunt.log.writeln("Process " + file);
 

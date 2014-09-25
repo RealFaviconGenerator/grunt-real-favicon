@@ -24,37 +24,40 @@ var cheerio = require("cheerio");
     test.ifError(value)
 */
 
-function assertFileExists(file, test) {
+function assert_file_exists(file, test) {
   test.ok(grunt.file.exists(file), 'File ' + file + ' does not exist');
 }
 
-function getFileSize(file) {
+function get_file_size(file) {
   return fs.statSync(file).size;
 }
 
-function assertPicture(actual, expected, test) {
-  assertFileExists(actual, test);
-  assertFileExists(expected, test);
-  test.equal(getFileSize(actual), getFileSize(expected));
-}
+function assert_file(actual, expected, test) {
+  assert_file_exists(actual, test);
+  assert_file_exists(expected, test);
 
-function assert_html(actual, expected, test) {
-  assertFileExists(actual, test);
-  assertFileExists(expected, test);
-  test.equal(grunt.file.read(actual), grunt.file.read(expected), actual + ' should be identical to ' + expected);
+  var ext = actual.split('.').pop();
+  if (ext === 'png') {
+    var as = get_file_size(actual);
+    var es = get_file_size(expected);
+    test.equal(as, es, actual + ' (' + as + ' bytes) and ' + expected + ' (' + es + ') should have the same size');
+  }
+  else {
+    test.equal(grunt.file.read(actual), grunt.file.read(expected), actual + ' should be identical to ' + expected);
+  }
 }
-
 
 exports.real_favicon = {
   setUp: function(done, test) {
     done();
   },
   screnario_1: function(test) {
-    test.expect(9);
+    test.expect(75);
 
-    assertPicture("tmp/scenario_1/pics/favicon.ico", 'test/expected/favicon.ico', test);
-    assert_html('test/expected/page1.html', 'tmp/scenario_1/page1.html', test);
-    assert_html('test/expected/page2.html', 'tmp/scenario_1/page2.html', test);
+    grunt.file.expand('test/expected/scenario_1/*').forEach(function(file) {
+      var filename = file.replace(/^.*[\\\/]/, '');
+      assert_file('tmp/scenario_1/' + filename, file, test);
+    });
 
     test.done();
   }
