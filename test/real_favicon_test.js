@@ -81,4 +81,14 @@ exports.real_favicon = {
 
     test.done();
   }
+/*
+  // This is not a real test scenario.
+  // When running it, the favicon task itself fails,
+  // thus making the Grunt execution fail, too.
+  ,
+  scenario_4: function(test) {
+    test.ok(false, "This test is not supposed to pass");
+    test.done();
+  }
+*/
 };

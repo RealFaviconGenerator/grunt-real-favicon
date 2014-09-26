@@ -89,7 +89,20 @@ module.exports = function(grunt) {
           compression: 3,
           scaling_algorithm: 'Cubic'
         }
+      },
+/*
+      scenario_4: {
+        src: 'http://realfavicongenerator.net/no_such_picture.png',
+        dest: 'tmp/scenario_2',
+        icons_path: undefined,
+        html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
+        design: {
+          ios: {
+            picture_aspect: 'this_option_does_not_make_sense',
+          }
+        }
       }
+*/
     },
 
     // Copy HTML files (they are modified in place)

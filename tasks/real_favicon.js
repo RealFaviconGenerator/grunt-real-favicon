@@ -79,11 +79,13 @@ module.exports = function(grunt) {
     }
     // Design
     request.favicon_design = this.data.design;
-    if (request.favicon_design.ios.picture_aspect === 'dedicated_picture') {
-      request.favicon_design.ios.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.ios.dedicated_picture);
-    }
-    if (request.favicon_design.windows.picture_aspect === 'dedicated_picture') {
-      request.favicon_design.windows.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.windows.dedicated_picture);
+    if (request.favicon_design !== undefined) {
+      if ((request.favicon_design.ios !== undefined) && (request.favicon_design.ios.picture_aspect === 'dedicated_picture')) {
+        request.favicon_design.ios.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.ios.dedicated_picture);
+      }
+      if ((request.favicon_design.windows !== undefined) && (request.favicon_design.windows.picture_aspect === 'dedicated_picture')) {
+        request.favicon_design.windows.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.windows.dedicated_picture);
+      }
     }
     // Settings
     request.settings = this.data.settings;
