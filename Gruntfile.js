@@ -31,16 +31,11 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     real_favicon: {
       scenario_1: {
-        favicon: {
-          master_picture: {
-            type: "inline",
-            content: 'test/fixtures/sample_picture.png',
-          },
-          files_location: {
-            type: "path",
-            path: "/path/to/icons"
-          },
-          favicon_design: {
+        src: 'test/fixtures/sample_picture.png',
+        dest: 'tmp/scenario_1',
+        icons_path: '/path/to/icons',
+        html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html'],
+        design: {
             ios: {
               picture_aspect: 'background_and_margin',
               background_color: '#654321',
@@ -50,10 +45,7 @@ module.exports = function(grunt) {
               picture_aspect: 'no_change',
               background_color: '#123456'
             }
-          }
-        },
-        dest: 'tmp/scenario_1',
-        html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html']
+        }
       }
     },
 

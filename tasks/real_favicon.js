@@ -41,18 +41,46 @@ module.exports = function(grunt) {
     grunt.file.write(file, $.html());
   }
 
+  function starts_with(str, prefix) {
+    return str.lastIndexOf(prefix, 0) === 0;
+  }
+
+  function is_url(url_or_path) {
+    return starts_with(url_or_path, 'http://') ||
+      starts_with(url_or_path, 'https://') ||
+      starts_with(url_or_path, '//');
+  }
+
   grunt.registerMultiTask('real_favicon', 'Generate a multiplatform favicon with RealFaviconGenerator', function() {
     var done = this.async();
     var html_files = this.data.html;
 
-    // Complete favicon spec
-    var favicon_spec = this.data.favicon;
-    favicon_spec.api_key = '87d5cd739b05c00416c4a19cd14a8bb5632ea563';
-    if (favicon_spec.master_picture.content) {
-      favicon_spec.master_picture.content = rfg_api.file_to_base64(favicon_spec.master_picture.content);
+    // Build favicon generation request
+    var request = {};
+    request.api_key = '87d5cd739b05c00416c4a19cd14a8bb5632ea563';
+    // Master picture
+    request.master_picture = {};
+    if (is_url(this.data.src)) {
+      request.master_picture.type = 'url';
+      request.master_picture.url = this.data.src;
     }
+    else {
+      request.master_picture.type = 'inline';
+      request.master_picture.content = rfg_api.file_to_base64(this.data.src);
+    }
+    // Path
+    request.files_location = {};
+    if (this.data.icons_path === undefined) {
+      request.files_location.type = 'root';
+    }
+    else {
+      request.files_location.type = 'path';
+      request.files_location.path = this.data.icons_path;
+    }
+    // Design
+    request.favicon_design = this.data.design;
 
-    rfg_api.generate_favicon(favicon_spec, this.data.dest, function(favicon) {
+    rfg_api.generate_favicon(request, this.data.dest, function(favicon) {
         html_files.forEach(function(file) {
           grunt.log.writeln("Process " + file);
 
