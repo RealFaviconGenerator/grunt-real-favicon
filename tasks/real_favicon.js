@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   function add_favicon_markups(file, html_code) {
     var content = grunt.file.read(file);
 
+    // The following lines were inspired by https://github.com/gleero/grunt-favicons
     var $ = cheerio.load(content);
     // Removing exists favicon from HTML
     $('link[rel="shortcut icon"]').remove();
