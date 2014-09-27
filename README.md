@@ -1,6 +1,6 @@
 # grunt-real-favicon
 
-> Generate a multiplatform favicon with RealFaviconGenerator
+> Generate a multiplatform favicon with [RealFaviconGenerator](http://realfavicongenerator.net/).
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
