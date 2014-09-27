@@ -25,65 +25,49 @@ In your project's Gruntfile, add a section named `real_favicon` to the data obje
 ```js
 grunt.initConfig({
   real_favicon: {
-    options: {
-      // Task-specific options go here.
+    // The favicon master picture
+    src: 'pics/high_res_logo.png',
+    // Directory where the generated pictures will be stored
+    dest: 'dist/path/to/icons',
+    // Path to icon (eg. favicon.ico will be accessible through http://mysite.com/path/to/icons/favicon.ico)
+    icons_path: '/path/to/icons',
+    // HTML files where the favicon code should be inserted
+    html: ['dist/index.html', 'dist/about.html'],
+    design: {
+      // These options reflect the settings available in RealFaviconGenerator
+      ios: {
+        picture_aspect: 'background_and_margin',
+        background_color: '#654321',
+        margin: 4
+      },
+      windows: {
+        picture_aspect: 'white_silhouette',
+        background_color: '#123456'
+      }
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    settings: {
+      // 0 = no compression, 5 = maximum compression
+      compression: 5,
+      // Default is Mitchell
+      scaling_algorithm: 'NearestNeighbor'
+    }
   },
 });
 ```
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+TODO
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  real_favicon: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  real_favicon: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+TODO
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+### 0.0.1
+
+Initial version. At this stage, the project is just a first shot. It is too early to use it in a real web project.
