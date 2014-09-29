@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
     // Build favicon generation request
     var request = {};
-    request.api_key = '87d5cd739b05c00416c4a19cd14a8bb5632ea563';
+    request.api_key = 'f26d432783a1856427f32ed8793e1d457cc120f1';
     // Master picture
     request.master_picture = {};
     if (is_url(this.data.src)) {
