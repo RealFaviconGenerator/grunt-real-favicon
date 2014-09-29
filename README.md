@@ -25,33 +25,35 @@ In your project's Gruntfile, add a section named `real_favicon` to the data obje
 ```js
 grunt.initConfig({
   real_favicon: {
-    // The favicon master picture
-    src: 'pics/high_res_logo.png',
-    // Directory where the generated pictures will be stored
-    dest: 'dist/path/to/icons',
-    // Path to icon (eg. favicon.ico will be accessible through http://mysite.com/path/to/icons/favicon.ico)
-    icons_path: '/path/to/icons',
-    // HTML files where the favicon code should be inserted
-    html: ['dist/index.html', 'dist/about.html'],
-    design: {
-      // These options reflect the settings available in RealFaviconGenerator
-      ios: {
-        picture_aspect: 'background_and_margin',
-        background_color: '#654321',
-        margin: 4
+    my_icon: {
+      // The favicon master picture
+      src: 'pics/high_res_logo.png',
+      // Directory where the generated pictures will be stored
+      dest: 'dist/path/to/icons',
+      // Path to icon (eg. favicon.ico will be accessible through http://mysite.com/path/to/icons/favicon.ico)
+      icons_path: '/path/to/icons',
+      // HTML files where the favicon code should be inserted
+      html: ['dist/index.html', 'dist/about.html'],
+      design: {
+        // These options reflect the settings available in RealFaviconGenerator
+        ios: {
+          picture_aspect: 'background_and_margin',
+          background_color: '#654321',
+          margin: 4
+        },
+        windows: {
+          picture_aspect: 'white_silhouette',
+          background_color: '#123456'
+        }
       },
-      windows: {
-        picture_aspect: 'white_silhouette',
-        background_color: '#123456'
+      settings: {
+        // 0 = no compression, 5 = maximum compression
+        compression: 5,
+        // Default is Mitchell
+        scaling_algorithm: 'NearestNeighbor'
       }
-    },
-    settings: {
-      // 0 = no compression, 5 = maximum compression
-      compression: 5,
-      // Default is Mitchell
-      scaling_algorithm: 'NearestNeighbor'
     }
-  },
+  }
 });
 ```
 
