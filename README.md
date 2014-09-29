@@ -221,6 +221,14 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.0.3
+
+Documentation added, API key updated.
+
+### 0.0.2
+
+Last minute fixes.
+
 ### 0.0.1
 
 Initial version. At this stage, the project is just a first shot. It is too early to use it in a real web project.
