@@ -27,7 +27,7 @@ module.exports = function(grunt) {
       var name = $(this).attr('name');
       if (name && (name === 'msapplication-TileImage' ||
                 name === 'msapplication-TileColor' ||
-                name.indexOf('msapplication-square') >= 0)) {
+                name === 'msapplication-config')) {
         $(this).remove();
       }
     });
