@@ -1,7 +1,7 @@
 {
   "name": "grunt-real-favicon",
   "description": "Generate a multiplatform favicon with RealFaviconGenerator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/RealFaviconGenerator/grunt-real-favicon",
   "author": {
     "name": "Philippe Bernard",
