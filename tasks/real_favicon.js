@@ -66,12 +66,12 @@ module.exports = function(grunt) {
           grunt.log.writeln("Process " + file);
 
           if (! grunt.file.exists(file)) {
-            grunt.warn("HTML file " + file + " does not exist");
+            grunt.file.write(file, favicon.favicon.html_code);
+          } else {
+            api.generate_favicon_markups(file, favicon.favicon.html_code, function(code) {
+              grunt.file.write(file, code);
+            });
           }
-
-          api.generate_favicon_markups(file, favicon.favicon.html_code, function(code) {
-            grunt.file.write(file, code);
-          });
         });
 
         done();
