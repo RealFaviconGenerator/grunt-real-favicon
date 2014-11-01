@@ -10,7 +10,7 @@
 
 module.exports = function(grunt) {
 
-  var rfg_api = require('./lib/rfg_api.js').init(grunt);
+  var rfg_api = require('rfg-api').init(grunt);
   var cheerio = require("cheerio");
 
   function add_favicon_markups(file, html_code) {
