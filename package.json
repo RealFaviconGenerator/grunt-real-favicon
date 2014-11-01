@@ -27,7 +27,6 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cheerio": "^0.17.0",
     "fstream": "^1.0.2",
     "node-rest-client": "^1.0.0",
     "rfg-api": "git+https://github.com/RealFaviconGenerator/rfg-api.git",

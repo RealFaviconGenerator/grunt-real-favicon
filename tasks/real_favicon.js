@@ -10,37 +10,7 @@
 
 module.exports = function(grunt) {
 
-  var rfg_api = require('rfg-api').init(grunt);
-  var cheerio = require("cheerio");
-
-  function add_favicon_markups(file, html_code) {
-    var content = grunt.file.read(file);
-
-    // The following lines were inspired by https://github.com/gleero/grunt-favicons
-    var $ = cheerio.load(content);
-    // Removing exists favicon from HTML
-    $('link[rel="shortcut icon"]').remove();
-    $('link[rel="icon"]').remove();
-    $('link[rel="apple-touch-icon"]').remove();
-    $('link[rel="apple-touch-icon-precomposed"]').remove();
-    $('meta').each(function(i, elem) {
-      var name = $(this).attr('name');
-      if (name && (name === 'msapplication-TileImage' ||
-                name === 'msapplication-TileColor' ||
-                name === 'msapplication-config')) {
-        $(this).remove();
-      }
-    });
-
-    if ($('head').length > 0) {
-      $('head').append(html_code);
-    }
-    else {
-      $.root().append(html_code);
-    }
-
-    grunt.file.write(file, $.html());
-  }
+  var api = require('rfg-api').init(grunt);
 
   function starts_with(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
@@ -67,7 +37,7 @@ module.exports = function(grunt) {
     }
     else {
       request.master_picture.type = 'inline';
-      request.master_picture.content = rfg_api.file_to_base64(this.data.src);
+      request.master_picture.content = api.file_to_base64(this.data.src);
     }
     // Path
     request.files_location = {};
@@ -82,16 +52,16 @@ module.exports = function(grunt) {
     request.favicon_design = this.data.design;
     if (request.favicon_design !== undefined) {
       if ((request.favicon_design.ios !== undefined) && (request.favicon_design.ios.picture_aspect === 'dedicated_picture')) {
-        request.favicon_design.ios.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.ios.dedicated_picture);
+        request.favicon_design.ios.dedicated_picture = api.file_to_base64(request.favicon_design.ios.dedicated_picture);
       }
       if ((request.favicon_design.windows !== undefined) && (request.favicon_design.windows.picture_aspect === 'dedicated_picture')) {
-        request.favicon_design.windows.dedicated_picture = rfg_api.file_to_base64(request.favicon_design.windows.dedicated_picture);
+        request.favicon_design.windows.dedicated_picture = api.file_to_base64(request.favicon_design.windows.dedicated_picture);
       }
     }
     // Settings
     request.settings = this.data.settings;
 
-    rfg_api.generate_favicon(request, this.data.dest, function(favicon) {
+    api.generate_favicon(request, this.data.dest, function(favicon) {
         html_files.forEach(function(file) {
           grunt.log.writeln("Process " + file);
 
@@ -99,7 +69,9 @@ module.exports = function(grunt) {
             grunt.warn("HTML file " + file + " does not exist");
           }
 
-          add_favicon_markups(file, favicon.favicon.html_code);
+          api.generate_favicon_markups(file, favicon.favicon.html_code, function(code) {
+            grunt.file.write(file, code);
+          });
         });
 
         done();
