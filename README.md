@@ -108,11 +108,11 @@ Default: `no_change`
 Possible values:
 
 - `no_change`: Use the master picture as is.
-- `background_an_margin`: Add a solid background to the (transparent) master picture and a margin. With this option, add the `background_color` and `margin` parameters:
+- `background_and_margin`: Add a solid background to the (transparent) master picture and a margin. With this option, add the `background_color` and `margin` parameters:
 
 ```js
 ios: {
-  picture_aspect: 'background_an_margin',
+  picture_aspect: 'background_and_margin',
   background_color: '#123456',
   margin: 5
 }
