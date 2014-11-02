@@ -83,6 +83,17 @@ module.exports = function(grunt) {
           windows: {
             picture_aspect: 'no_change',
             background_color: '#aabbcc'
+          },
+          firefox_app: {
+            picture_aspect: 'circle',
+            margin: 0,
+            circle_inner_margin: 1,
+            keep_picture_in_circle: true,
+            overlay: true,
+            developer_name: "Philippe",
+            developer_url: "http://philippebernard.fr",
+            app_name: "Sample app",
+            app_description:" Oh my sample app"
           }
         },
         settings: {
