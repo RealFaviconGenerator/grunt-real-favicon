@@ -64,6 +64,13 @@ module.exports = function(grunt) {
           windows: {
             picture_aspect: 'dedicated_picture',
             dedicated_picture: 'test/fixtures/sample_picture_2.png'
+          },
+          android_chrome: {
+            picture_aspect: 'shadow',
+            manifest: {
+              name: 'Sample application',
+              display: 'browser'
+            }
           }
         },
         settings: {
