@@ -44,6 +44,11 @@ module.exports = function(grunt) {
             windows: {
               picture_aspect: 'white_silhouette',
               background_color: '#123456'
+            },
+            coast: {
+              picture_aspect: 'background_and_margin',
+              background_color: '#469752',
+              margin: '12%'
             }
         },
         settings: {
