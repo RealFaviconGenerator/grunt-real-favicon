@@ -49,6 +49,13 @@ module.exports = function(grunt) {
               picture_aspect: 'background_and_margin',
               background_color: '#469752',
               margin: '12%'
+            },
+            open_graph: {
+              picture_aspect: 'background_and_margin',
+              background_color: '#ab91ef',
+              margin: '8%',
+              ratio: '1.91:1',
+              site_url: "http://example.com/"
             }
         },
         settings: {
