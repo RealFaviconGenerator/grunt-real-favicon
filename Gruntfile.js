@@ -56,6 +56,13 @@ module.exports = function(grunt) {
               margin: '8%',
               ratio: '1.91:1',
               site_url: "http://example.com/"
+            },
+            yandex_browser: {
+              background_color: "#ab56cd",
+              manifest: {
+                version: "1.0",
+                show_title: true
+              }
             }
         },
         settings: {
