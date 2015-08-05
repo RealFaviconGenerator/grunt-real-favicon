@@ -40,23 +40,38 @@ grunt.initConfig({
       icons_path: '/path/to/icons',
       // HTML files where the favicon code should be inserted
       html: ['dist/index.html', 'dist/about.html'],
+      // These options reflect the settings available in RealFaviconGenerator
       design: {
-        // These options reflect the settings available in RealFaviconGenerator
+        // Create .ico and default .png file - has no properties
+        desktop_browser: {},
+        // iOS icons options
         ios: {
           picture_aspect: 'background_and_margin',
           background_color: '#654321',
           margin: 4
         },
+        // WindowsPhone options
         windows: {
-          picture_aspect: 'white_silhouette',
+          picture_aspect: 'no_change',
           background_color: '#123456'
-        }
+        },
+        // Android Chrome options
+        android_chrome: {
+            picture_aspect: 'shadow',
+            manifest: {
+                name: 'My Project Name',
+                display: 'standalone',
+                orientation: 'portrait',
+                start_url: '/index.html'
+            },
+            theme_color: '#654321'
+        },
       },
       settings: {
         // 0 = no compression, 5 = maximum compression
-        compression: 5,
+        compression: 3,
         // Default is Mitchell
-        scaling_algorithm: 'NearestNeighbor'
+        scaling_algorithm: 'Mitchell'
       }
     }
   }
@@ -64,6 +79,8 @@ grunt.initConfig({
 ```
 
 ### Options
+
+HEY! FOR MORE OPTIONS AND DOC, TAKE A LOOK IN OFFICIAL API PAGE: http://realfavicongenerator.net/api/non_interactive_api
 
 #### src
 Type: `String`
@@ -98,6 +115,11 @@ Default: `[]`
 The HTML files where the favicon code needs to be injected. Probably all pages of the web site.
 
 #### design
+
+##### desktop_browser
+No options needed, just set this key in object for generate the icons and html tags for desktop support
+
+Design for the classic desktop browsers. This section has no parameters. The philosophy behind is that the master picture is usually designed for this purpose.
 
 ##### ios
 
@@ -160,6 +182,44 @@ Type: `String`
 Default: ``
 
 The color to be used as the background of the tile.
+
+##### android_chrome
+
+###### picture_aspect
+Type: `String`
+Default: `no_change`
+
+Possible values:
+
+- `no_change` Use the master picture as is.
+- `background_and_margin` Generate a square icon with margin and background. Combine this value with the margin and background_color parameters.
+- `shadow` Add a small drop shadow to the master picture. This effect is used by several Google apps, such as Chrome, Gmail, Drive or Inbox.
+
+###### manifest
+
+This section describes the manifest. It is mandatory.
+
+####### name
+Type: `String`
+Default: ``
+
+The application name is used as the title of the link when the visitor adds the site to the home screen. This field is mandatory. There is no way to force Android Chrome to use the current page title.
+
+####### start_url
+Type: `String`
+Default: ``
+
+The page actually added to the home screen. Typically, the home page of the site. Leave this field blank to let a visitor add any page to the home screen.
+
+####### display
+Type: `String`
+Default `standalone`
+
+###### theme_color
+
+The color applied to the standalone app when using the task switcher. Introduced in Android 5 Lollipop.
+Type: `HEX`
+Default `#ffffff`
 
 #### settings
 
