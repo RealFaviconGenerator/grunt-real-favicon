@@ -27,10 +27,10 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "fstream": "^1.0.2",
     "node-rest-client": "^1.0.0",
-    "rfg-api": "git+https://github.com/RealFaviconGenerator/rfg-api.git",
-    "unzip": "^0.1.11"
+    "rfg-api": "git+https://github.com/RealFaviconGenerator/rfg-api.git"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

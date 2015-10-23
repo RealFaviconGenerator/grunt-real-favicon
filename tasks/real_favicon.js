@@ -11,6 +11,7 @@
 module.exports = function(grunt) {
 
   var rfg = require('rfg-api').init(grunt);
+  var async = require('async');
 
   function startsWith(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
@@ -85,21 +86,25 @@ module.exports = function(grunt) {
     request.settings = this.data.settings;
 
     rfg.generateFavicon(request, this.data.dest, function(favicon) {
-        grunt.log.writeln("Favicon generation callback");
+      grunt.log.writeln("Favicon generation callback");
 
-        html_files.forEach(function(file) {
-          grunt.log.writeln("Process " + file);
+      async.each(html_files, function(file, callback) {
+        grunt.log.writeln("Process " + file);
 
-          if (! grunt.file.exists(file)) {
-            grunt.file.write(file, favicon.favicon.html_code);
-          } else {
-            rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
-              grunt.file.write(file, code);
-            });
-          }
-        });
-
+        if (! grunt.file.exists(file)) {
+          grunt.file.write(file, favicon.favicon.html_code);
+          callback();
+        }
+        else {
+          rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
+            grunt.file.write(file, code);
+            callback();
+          });
+        }
+      },
+      function() {
         done();
+      });
     });
   });
 
