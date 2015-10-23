@@ -12,37 +12,37 @@ module.exports = function(grunt) {
 
   var rfg = require('rfg-api').init(grunt);
 
-  function starts_with(str, prefix) {
+  function startsWith(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
   }
 
-  function is_url(url_or_path) {
-    return starts_with(url_or_path, 'http://') ||
-      starts_with(url_or_path, 'https://') ||
-      starts_with(url_or_path, '//');
+  function isUrl(url_or_path) {
+    return startsWith(url_or_path, 'http://') ||
+      startsWith(url_or_path, 'https://') ||
+      startsWith(url_or_path, '//');
   }
 
-  function normalize_master_picture(master_picture) {
+  function normalizeMasterPicture(master_picture) {
     if ((master_picture.type === 'inline') || (master_picture.content !== undefined)) {
       master_picture.content = rfg.fileToBase64Sync(master_picture.content);
     }
     return master_picture;
   }
 
-  function normalize_all_master_pictures(request) {
+  function normalizeAllMasterPictures(request) {
     if (request.constructor === Array) {
       for (var i = 0; i < request.length; i++) {
-        request[i] = normalize_all_master_pictures(request[i]);
+        request[i] = normalizeAllMasterPictures(request[i]);
       }
     }
     else if (request.constructor === Object) {
       var keys = Object.keys(request);
       for (var j = 0; j < keys.length; j++) {
         if (keys[j] === 'master_picture') {
-          request[keys[j]] = normalize_master_picture(request[keys[j]]);
+          request[keys[j]] = normalizeMasterPicture(request[keys[j]]);
         }
         else {
-          request[keys[j]] = normalize_all_master_pictures(request[keys[j]]);
+          request[keys[j]] = normalizeAllMasterPictures(request[keys[j]]);
         }
       }
       return request;
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     request.api_key = 'f26d432783a1856427f32ed8793e1d457cc120f1';
     // Master picture
     request.master_picture = {};
-    if (is_url(this.data.src)) {
+    if (isUrl(this.data.src)) {
       request.master_picture.type = 'url';
       request.master_picture.url = this.data.src;
     }
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
       request.files_location.path = this.data.icons_path;
     }
     // Design
-    request.favicon_design = normalize_all_master_pictures(this.data.design);
+    request.favicon_design = normalizeAllMasterPictures(this.data.design);
 
     // Settings
     request.settings = this.data.settings;
