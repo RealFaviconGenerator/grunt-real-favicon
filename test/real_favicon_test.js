@@ -52,7 +52,7 @@ exports.real_favicon = {
     done();
   },
   scenario_1: function(test) {
-    test.expect(75);
+    test.expect(72);
 
     grunt.file.expand('test/expected/scenario_1/*').forEach(function(file) {
       var filename = file.replace(/^.*[\\\/]/, '');
@@ -62,7 +62,7 @@ exports.real_favicon = {
     test.done();
   },
   scenario_2: function(test) {
-    test.expect(96);
+    test.expect(78);
 
     grunt.file.expand('test/expected/scenario_2/*').forEach(function(file) {
       var filename = file.replace(/^.*[\\\/]/, '');
@@ -72,7 +72,7 @@ exports.real_favicon = {
     test.done();
   },
   scenario_3: function(test) {
-    test.expect(87);
+    test.expect(69);
 
     grunt.file.expand('test/expected/scenario_3/*').forEach(function(file) {
       var filename = file.replace(/^.*[\\\/]/, '');

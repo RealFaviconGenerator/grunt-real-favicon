@@ -10,7 +10,7 @@
 
 module.exports = function(grunt) {
 
-  var api = require('rfg-api').init(grunt);
+  var rfg = require('rfg-api').init(grunt);
 
   function starts_with(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
@@ -20,6 +20,36 @@ module.exports = function(grunt) {
     return starts_with(url_or_path, 'http://') ||
       starts_with(url_or_path, 'https://') ||
       starts_with(url_or_path, '//');
+  }
+
+  function normalize_master_picture(master_picture) {
+    if ((master_picture.type === 'inline') || (master_picture.content !== undefined)) {
+      master_picture.content = rfg.fileToBase64Sync(master_picture.content);
+    }
+    return master_picture;
+  }
+
+  function normalize_all_master_pictures(request) {
+    if (request.constructor === Array) {
+      for (var i = 0; i < request.length; i++) {
+        request[i] = normalize_all_master_pictures(request[i]);
+      }
+    }
+    else if (request.constructor === Object) {
+      var keys = Object.keys(request);
+      for (var j = 0; j < keys.length; j++) {
+        if (keys[j] === 'master_picture') {
+          request[keys[j]] = normalize_master_picture(request[keys[j]]);
+        }
+        else {
+          request[keys[j]] = normalize_all_master_pictures(request[keys[j]]);
+        }
+      }
+      return request;
+    }
+    else {
+      return request;
+    }
   }
 
   grunt.registerMultiTask('real_favicon', 'Generate a multiplatform favicon with RealFaviconGenerator', function() {
@@ -37,7 +67,7 @@ module.exports = function(grunt) {
     }
     else {
       request.master_picture.type = 'inline';
-      request.master_picture.content = api.file_to_base64(this.data.src);
+      request.master_picture.content = rfg.fileToBase64Sync(this.data.src);
     }
     // Path
     request.files_location = {};
@@ -49,26 +79,21 @@ module.exports = function(grunt) {
       request.files_location.path = this.data.icons_path;
     }
     // Design
-    request.favicon_design = this.data.design;
-    if (request.favicon_design !== undefined) {
-      if ((request.favicon_design.ios !== undefined) && (request.favicon_design.ios.picture_aspect === 'dedicated_picture')) {
-        request.favicon_design.ios.dedicated_picture = api.file_to_base64(request.favicon_design.ios.dedicated_picture);
-      }
-      if ((request.favicon_design.windows !== undefined) && (request.favicon_design.windows.picture_aspect === 'dedicated_picture')) {
-        request.favicon_design.windows.dedicated_picture = api.file_to_base64(request.favicon_design.windows.dedicated_picture);
-      }
-    }
+    request.favicon_design = normalize_all_master_pictures(this.data.design);
+
     // Settings
     request.settings = this.data.settings;
 
-    api.generate_favicon(request, this.data.dest, function(favicon) {
+    rfg.generateFavicon(request, this.data.dest, function(favicon) {
+        grunt.log.writeln("Favicon generation callback");
+
         html_files.forEach(function(file) {
           grunt.log.writeln("Process " + file);
 
           if (! grunt.file.exists(file)) {
             grunt.file.write(file, favicon.favicon.html_code);
           } else {
-            api.generate_favicon_markups(file, favicon.favicon.html_code, function(code) {
+            rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
               grunt.file.write(file, code);
             });
           }

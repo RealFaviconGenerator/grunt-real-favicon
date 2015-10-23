@@ -81,15 +81,19 @@ module.exports = function(grunt) {
             margin: 4
           },
           windows: {
-            picture_aspect: 'dedicated_picture',
-            dedicated_picture: 'test/fixtures/sample_picture_2.png'
+            master_picture: {
+              type: 'inline',
+              content: 'test/fixtures/sample_picture_2.png'
+            },
+            picture_aspect: 'no_change'
           },
           android_chrome: {
             picture_aspect: 'shadow',
             manifest: {
               name: 'Sample application',
               display: 'browser'
-            }
+            },
+            theme_color: '#798546'
           }
         },
         settings: {
@@ -103,8 +107,10 @@ module.exports = function(grunt) {
         html: ['tmp/scenario_3/page1.html', 'tmp/scenario_3/page2.html'],
         design: {
           ios: {
-            picture_aspect: 'dedicated_picture',
-            dedicated_picture: 'test/fixtures/sample_picture_2.png',
+            master_picture: {
+              content: 'test/fixtures/sample_picture_2.png'
+            },
+            picture_aspect: 'no_change'
           },
           windows: {
             picture_aspect: 'no_change',
