@@ -221,6 +221,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.1.0
+
+The plugin now uses [rfg-api](https://github.com/RealFaviconGenerator/rfg-api).
+
 ### 0.0.4
 
 Fix: <code>msapplication-config</code> was not removed from the HTML. Credits: [Kevin Marsh](http://kevinmarsh.ca/).
