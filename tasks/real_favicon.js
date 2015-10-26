@@ -85,6 +85,9 @@ module.exports = function(grunt) {
     // Settings
     request.settings = this.data.settings;
 
+    // Versioning
+    request.versioning = this.data.versioning;
+
     rfg.generateFavicon(request, this.data.dest, function(favicon) {
       async.each(html_files, function(file, callback) {
         grunt.log.writeln("Process " + file);
