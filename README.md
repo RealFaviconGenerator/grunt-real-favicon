@@ -1,6 +1,6 @@
 # grunt-real-favicon
 
-> Generate a multiplatform favicon with [RealFaviconGenerator](http://realfavicongenerator.net/).
+Generate a multiplatform favicon with [RealFaviconGenerator](http://realfavicongenerator.net/).
 
 ## Getting Started
 
@@ -36,7 +36,8 @@ grunt.initConfig({
       src: 'pics/high_res_logo.png',
       // Directory where the generated pictures will be stored
       dest: 'dist/path/to/icons',
-      // Path to icon (eg. favicon.ico will be accessible through http://mysite.com/path/to/icons/favicon.ico)
+      // Path to icon (eg. favicon.ico will be accessible
+      // through http://mysite.com/path/to/icons/favicon.ico)
       icons_path: '/path/to/icons',
       // HTML files where the favicon code should be inserted
       html: ['dist/index.html', 'dist/about.html'],
@@ -80,8 +81,6 @@ grunt.initConfig({
 
 ### Options
 
-HEY! FOR MORE OPTIONS AND DOC, TAKE A LOOK IN OFFICIAL API PAGE: http://realfavicongenerator.net/api/non_interactive_api
-
 #### src
 Type: `String`
 Default: none (mandatory)
@@ -115,6 +114,10 @@ Default: `[]`
 The HTML files where the favicon code needs to be injected. Probably all pages of the web site.
 
 #### design
+
+The `design` section refers to the [`favicon_design` section as defined by the non-interactive API of RealFaviconGenerator](https://realfavicongenerator.net/api/non_interactive_api#favicon_design).
+
+**HEY! FOR MORE OPTIONS AND UP-TO-DATE DOC, TAKE A LOOK IN OFFICIAL API PAGE: http://realfavicongenerator.net/api/non_interactive_api#favicon_design**
 
 ##### desktop_browser
 No options needed, just set this key in object for generate the icons and html tags for desktop support
@@ -223,6 +226,8 @@ Default `#ffffff`
 
 #### settings
 
+The `settings` section refers to the [`settings` section as defined by the non-interactive API of RealFaviconGenerator](https://realfavicongenerator.net/api/non_interactive_api#settings).
+
 ##### compression
 Type: `Integer`
 Default: `0`
@@ -241,6 +246,10 @@ The scaling algorithm used to create the icons. Available algorithms:
 - `Bilinear`
 - `Lanczos`
 - `Spline`
+
+#### versioning
+
+The `versioning` section refers to the [`versioning` section as defined by the non-interactive API of RealFaviconGenerator](https://realfavicongenerator.net/api/non_interactive_api#versioning).
 
 ### Usage Examples
 
