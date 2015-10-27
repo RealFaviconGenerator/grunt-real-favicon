@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('real_favicon', 'Generate a multiplatform favicon with RealFaviconGenerator', function() {
     var done = this.async();
-    var html_files = this.data.html;
+    var html_files = this.options().html;
 
     // Build favicon generation request
     var request = {};
@@ -72,21 +72,21 @@ module.exports = function(grunt) {
     }
     // Path
     request.files_location = {};
-    if (this.data.icons_path === undefined) {
+    if (this.options().icons_path === undefined) {
       request.files_location.type = 'root';
     }
     else {
       request.files_location.type = 'path';
-      request.files_location.path = this.data.icons_path;
+      request.files_location.path = this.options().icons_path;
     }
     // Design
-    request.favicon_design = normalizeAllMasterPictures(this.data.design);
+    request.favicon_design = normalizeAllMasterPictures(this.options().design);
 
     // Settings
-    request.settings = this.data.settings;
+    request.settings = this.options().settings;
 
     // Versioning
-    request.versioning = this.data.versioning;
+    request.versioning = this.options().versioning;
 
     rfg.generateFavicon(request, this.data.dest, function(favicon) {
       async.each(html_files, function(file, callback) {

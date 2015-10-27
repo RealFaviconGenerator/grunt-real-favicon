@@ -30,12 +30,41 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     real_favicon: {
+      options: {
+        // For scenario 1
+        icons_path: '/path/to/icons',
+        // For scenario 3
+        html: ['tmp/scenario_3/page1.html', 'tmp/scenario_3/page2.html'],
+        // For scenario 2
+        design: {
+          ios: {
+            picture_aspect: 'background_and_margin',
+            background_color: '#ff55cc',
+            margin: 4
+          },
+          windows: {
+            master_picture: {
+              type: 'inline',
+              content: 'test/fixtures/sample_picture_2.png'
+            },
+            picture_aspect: 'no_change'
+          },
+          android_chrome: {
+            picture_aspect: 'shadow',
+            manifest: {
+              name: 'Sample application',
+              display: 'browser'
+            },
+            theme_color: '#798546'
+          }
+        }
+      },
       scenario_1: {
         src: 'test/fixtures/sample_picture_2.png',
         dest: 'tmp/scenario_1',
-        icons_path: '/path/to/icons',
-        html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html'],
-        design: {
+        options: {
+          html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html'],
+          design: {
             desktop_browser: {},
             ios: {
               picture_aspect: 'background_and_margin',
@@ -65,88 +94,72 @@ module.exports = function(grunt) {
                 show_title: true
               }
             }
-        },
-        settings: {
-          compression: 5
+          },
+          settings: {
+            compression: 5
+          }
         }
       },
       scenario_2: {
         src: 'http://realfavicongenerator.net/demo_favicon.png',
         dest: 'tmp/scenario_2',
-        icons_path: undefined,
-        html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
-        design: {
-          ios: {
-            picture_aspect: 'background_and_margin',
-            background_color: '#ff55cc',
-            margin: 4
-          },
-          windows: {
-            master_picture: {
-              type: 'inline',
-              content: 'test/fixtures/sample_picture_2.png'
-            },
-            picture_aspect: 'no_change'
-          },
-          android_chrome: {
-            picture_aspect: 'shadow',
-            manifest: {
-              name: 'Sample application',
-              display: 'browser'
-            },
-            theme_color: '#798546'
+        options: {
+          icons_path: undefined,
+          html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
+          settings: {
+            scaling_algorithm: 'NearestNeighbor'
           }
-        },
-        settings: {
-          scaling_algorithm: 'NearestNeighbor'
         }
       },
       scenario_3: {
         src: 'test/fixtures/sample_picture.png',
         dest: 'tmp/scenario_3',
-        icons_path: '/yet/another/path',
-        html: ['tmp/scenario_3/page1.html', 'tmp/scenario_3/page2.html'],
-        design: {
-          ios: {
-            master_picture: {
-              content: 'test/fixtures/sample_picture_2.png'
+        options: {
+          icons_path: '/yet/another/path',
+          design: {
+            ios: {
+              master_picture: {
+                content: 'test/fixtures/sample_picture_2.png'
+              },
+              picture_aspect: 'no_change'
             },
-            picture_aspect: 'no_change'
+            windows: {
+              picture_aspect: 'no_change',
+              background_color: '#aabbcc'
+            },
+            firefox_app: {
+              picture_aspect: 'circle',
+              margin: 0,
+              circle_inner_margin: 1,
+              keep_picture_in_circle: true,
+              overlay: true,
+              developer_name: "Philippe",
+              developer_url: "http://philippebernard.fr",
+              app_name: "Sample app",
+              app_description:" Oh my sample app"
+            }
           },
-          windows: {
-            picture_aspect: 'no_change',
-            background_color: '#aabbcc'
+          settings: {
+            compression: 3,
+            scaling_algorithm: 'Cubic'
           },
-          firefox_app: {
-            picture_aspect: 'circle',
-            margin: 0,
-            circle_inner_margin: 1,
-            keep_picture_in_circle: true,
-            overlay: true,
-            developer_name: "Philippe",
-            developer_url: "http://philippebernard.fr",
-            app_name: "Sample app",
-            app_description:" Oh my sample app"
+          versioning: {
+            param_name: 'theVersion',
+            param_value: '123456'
           }
-        },
-        settings: {
-          compression: 3,
-          scaling_algorithm: 'Cubic'
-        },
-        versioning: {
-          param_name: 'theVersion',
-          param_value: '123456'
         }
       },
 /*
       scenario_4: {
         src: 'http://realfavicongenerator.net/no_such_picture.png',
         dest: 'tmp/scenario_2',
-        icons_path: undefined,
-        html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
-        design: {
-          ios: {
-            picture_aspect: 'this_option_does_not_make_sense',
+        options: {
+          icons_path: undefined,
+          html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
+          design: {
+            ios: {
+              picture_aspect: 'this_option_does_not_make_sense',
+            }
           }
         }
       }
