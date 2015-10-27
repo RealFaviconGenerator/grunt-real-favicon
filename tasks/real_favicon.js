@@ -72,21 +72,22 @@ module.exports = function(grunt) {
     }
     // Path
     request.files_location = {};
-    if (this.options().icons_path === undefined) {
+    if (this.options().iconsPath === undefined) {
       request.files_location.type = 'root';
     }
     else {
       request.files_location.type = 'path';
-      request.files_location.path = this.options().icons_path;
+      request.files_location.path = this.options().iconsPath;
     }
     // Design
-    request.favicon_design = normalizeAllMasterPictures(this.options().design);
+    request.favicon_design = normalizeAllMasterPictures(
+      rfg.camelCaseToUnderscoreRequest(this.options().design));
 
     // Settings
-    request.settings = this.options().settings;
+    request.settings = rfg.camelCaseToUnderscoreRequest(this.options().settings);
 
     // Versioning
-    request.versioning = this.options().versioning;
+    request.versioning = rfg.camelCaseToUnderscoreRequest(this.options().versioning);
 
     rfg.generateFavicon(request, this.data.dest, function(favicon) {
       async.each(html_files, function(file, callback) {

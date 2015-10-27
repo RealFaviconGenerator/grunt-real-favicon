@@ -32,30 +32,30 @@ module.exports = function(grunt) {
     real_favicon: {
       options: {
         // For scenario 1
-        icons_path: '/path/to/icons',
+        iconsPath: '/path/to/icons',
         // For scenario 3
         html: ['tmp/scenario_3/page1.html', 'tmp/scenario_3/page2.html'],
         // For scenario 2
         design: {
           ios: {
-            picture_aspect: 'background_and_margin',
-            background_color: '#ff55cc',
+            pictureAspect: 'backgroundAndMargin',
+            backgroundColor: '#ff55cc',
             margin: 4
           },
           windows: {
-            master_picture: {
+            masterPicture: {
               type: 'inline',
               content: 'test/fixtures/sample_picture_2.png'
             },
-            picture_aspect: 'no_change'
+            pictureAspect: 'no_change'
           },
-          android_chrome: {
-            picture_aspect: 'shadow',
+          androidChrome: {
+            pictureAspect: 'shadow',
             manifest: {
               name: 'Sample application',
               display: 'browser'
             },
-            theme_color: '#798546'
+            themeColor: '#798546'
           }
         }
       },
@@ -65,33 +65,33 @@ module.exports = function(grunt) {
         options: {
           html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html'],
           design: {
-            desktop_browser: {},
+            desktopBrowser: {},
             ios: {
-              picture_aspect: 'background_and_margin',
-              background_color: '#654321',
+              pictureAspect: 'backgroundAndMargin',
+              backgroundColor: '#654321',
               margin: 4
             },
             windows: {
-              picture_aspect: 'white_silhouette',
-              background_color: '#123456'
+              pictureAspect: 'whiteSilhouette',
+              backgroundColor: '#123456'
             },
             coast: {
-              picture_aspect: 'background_and_margin',
-              background_color: '#469752',
+              pictureAspect: 'backgroundAndMargin',
+              backgroundColor: '#469752',
               margin: '12%'
             },
-            open_graph: {
-              picture_aspect: 'background_and_margin',
-              background_color: '#ab91ef',
+            openGraph: {
+              pictureAspect: 'backgroundAndMargin',
+              backgroundColor: '#ab91ef',
               margin: '8%',
               ratio: '1.91:1',
-              site_url: "http://example.com/"
+              siteUrl: "http://example.com/"
             },
-            yandex_browser: {
-              background_color: "#ab56cd",
+            yandexBrowser: {
+              backgroundColor: "#ab56cd",
               manifest: {
                 version: "1.0",
-                show_title: true
+                showTitle: true
               }
             }
           },
@@ -104,10 +104,10 @@ module.exports = function(grunt) {
         src: 'http://realfavicongenerator.net/demo_favicon.png',
         dest: 'tmp/scenario_2',
         options: {
-          icons_path: undefined,
+          iconsPath: undefined,
           html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
           settings: {
-            scaling_algorithm: 'NearestNeighbor'
+            scalingAlgorithm: 'NearestNeighbor'
           }
         }
       },
@@ -115,37 +115,37 @@ module.exports = function(grunt) {
         src: 'test/fixtures/sample_picture.png',
         dest: 'tmp/scenario_3',
         options: {
-          icons_path: '/yet/another/path',
+          iconsPath: '/yet/another/path',
           design: {
             ios: {
-              master_picture: {
+              masterPicture: {
                 content: 'test/fixtures/sample_picture_2.png'
               },
-              picture_aspect: 'no_change'
+              pictureAspect: 'no_change'
             },
             windows: {
-              picture_aspect: 'no_change',
-              background_color: '#aabbcc'
+              pictureAspect: 'no_change',
+              backgroundColor: '#aabbcc'
             },
-            firefox_app: {
-              picture_aspect: 'circle',
+            firefoxApp: {
+              pictureAspect: 'circle',
               margin: 0,
-              circle_inner_margin: 1,
-              keep_picture_in_circle: true,
+              circleInnerMargin: 1,
+              keepPictureInCircle: true,
               overlay: true,
-              developer_name: "Philippe",
-              developer_url: "http://philippebernard.fr",
-              app_name: "Sample app",
-              app_description:" Oh my sample app"
+              developerName: "Philippe",
+              developerUrl: "http://philippebernard.fr",
+              appName: "Sample app",
+              appDescription:" Oh my sample app"
             }
           },
           settings: {
             compression: 3,
-            scaling_algorithm: 'Cubic'
+            scalingAlgorithm: 'Cubic'
           },
           versioning: {
-            param_name: 'theVersion',
-            param_value: '123456'
+            paramName: 'theVersion',
+            paramValue: '123456'
           }
         }
       },
@@ -154,11 +154,11 @@ module.exports = function(grunt) {
         src: 'http://realfavicongenerator.net/no_such_picture.png',
         dest: 'tmp/scenario_2',
         options: {
-          icons_path: undefined,
+          iconsPath: undefined,
           html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
           design: {
             ios: {
-              picture_aspect: 'this_option_does_not_make_sense',
+              pictureAspect: 'this_option_does_not_make_sense',
             }
           }
         }
