@@ -113,6 +113,8 @@ Default: `[]`
 
 The HTML files where the favicon code needs to be injected. Probably all pages of the web site.
 
+If one of the files does not exist, it is created and populated with the favicon HTML.
+
 #### design
 
 The `design` section refers to the [`favicon_design` section as defined by the non-interactive API of RealFaviconGenerator](https://realfavicongenerator.net/api/non_interactive_api#favicon_design).
@@ -299,6 +301,8 @@ see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/7
 see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/14
 - Options now use camelcase,
 see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/5
+- Generated HTML can be dumped to particular file so it can be used later,
+see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/6
 
 ### 0.0.4
 

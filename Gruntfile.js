@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         src: 'test/fixtures/sample_picture_2.png',
         dest: 'tmp/scenario_1',
         options: {
-          html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html'],
+          html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html', 'tmp/scenario_1/standalone.txt'],
           design: {
             desktopBrowser: {},
             ios: {
