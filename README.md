@@ -292,7 +292,13 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ### 0.1.0
 
-The plugin now uses [rfg-api](https://github.com/RealFaviconGenerator/rfg-api).
+- The plugin now uses [rfg-api](https://github.com/RealFaviconGenerator/rfg-api).
+- Configuration refactored to use an `options` section,
+see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/7
+- Documentation and test cases now takes `desktop_browser` into account,
+see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/14
+- Options now use camelcase,
+see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/5
 
 ### 0.0.4
 
