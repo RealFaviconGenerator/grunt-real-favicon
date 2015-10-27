@@ -131,6 +131,10 @@ module.exports = function(grunt) {
         settings: {
           compression: 3,
           scaling_algorithm: 'Cubic'
+        },
+        versioning: {
+          param_name: 'theVersion',
+          param_value: '123456'
         }
       },
 /*
