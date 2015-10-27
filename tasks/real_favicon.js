@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('real_favicon', 'Generate a multiplatform favicon with RealFaviconGenerator', function() {
     var done = this.async();
-    var html_files = this.options().html;
+    var html_files = this.options().html || [];
 
     // Build favicon generation request
     var request = {};

@@ -303,6 +303,8 @@ see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/14
 see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/5
 - Generated HTML can be dumped to particular file so it can be used later,
 see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/6
+- Fix a bug when the `html` parameter is not defined,
+see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/3
 
 ### 0.0.4
 
