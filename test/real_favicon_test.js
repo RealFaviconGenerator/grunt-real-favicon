@@ -52,7 +52,7 @@ exports.real_favicon = {
     done();
   },
   scenario_1: function(test) {
-    test.expect(72);
+    test.expect(84);
 
     grunt.file.expand('test/expected/scenario_1/*').forEach(function(file) {
       var filename = file.replace(/^.*[\\\/]/, '');
