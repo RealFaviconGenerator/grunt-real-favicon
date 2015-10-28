@@ -36,43 +36,45 @@ grunt.initConfig({
       src: 'pics/high_res_logo.png',
       // Directory where the generated pictures will be stored
       dest: 'dist/path/to/icons',
-      // Path to icon (eg. favicon.ico will be accessible
-      // through http://mysite.com/path/to/icons/favicon.ico)
-      icons_path: '/path/to/icons',
-      // HTML files where the favicon code should be inserted
-      html: ['dist/index.html', 'dist/about.html'],
-      // These options reflect the settings available in RealFaviconGenerator
-      design: {
-        // Create .ico and default .png file - has no properties
-        desktop_browser: {},
-        // iOS icons options
-        ios: {
-          picture_aspect: 'background_and_margin',
-          background_color: '#654321',
-          margin: 4
+      options: {
+        // Path to icon (eg. favicon.ico will be accessible
+        // through http://mysite.com/path/to/icons/favicon.ico)
+        icons_path: '/path/to/icons',
+        // HTML files where the favicon code should be inserted
+        html: ['dist/index.html', 'dist/about.html'],
+        // These options reflect the settings available in RealFaviconGenerator
+        design: {
+          // Create .ico and default .png file - has no properties
+          desktop_browser: {},
+          // iOS icons options
+          ios: {
+            picture_aspect: 'background_and_margin',
+            background_color: '#654321',
+            margin: 4
+          },
+          // WindowsPhone options
+          windows: {
+            picture_aspect: 'no_change',
+            background_color: '#123456'
+          },
+          // Android Chrome options
+          android_chrome: {
+              picture_aspect: 'shadow',
+              manifest: {
+                  name: 'My Project Name',
+                  display: 'standalone',
+                  orientation: 'portrait',
+                  start_url: '/index.html'
+              },
+              theme_color: '#654321'
+          },
         },
-        // WindowsPhone options
-        windows: {
-          picture_aspect: 'no_change',
-          background_color: '#123456'
-        },
-        // Android Chrome options
-        android_chrome: {
-            picture_aspect: 'shadow',
-            manifest: {
-                name: 'My Project Name',
-                display: 'standalone',
-                orientation: 'portrait',
-                start_url: '/index.html'
-            },
-            theme_color: '#654321'
-        },
-      },
-      settings: {
-        // 0 = no compression, 5 = maximum compression
-        compression: 3,
-        // Default is Mitchell
-        scaling_algorithm: 'Mitchell'
+        settings: {
+          // 0 = no compression, 5 = maximum compression
+          compression: 3,
+          // Default is Mitchell
+          scaling_algorithm: 'Mitchell'
+        }
       }
     }
   }
