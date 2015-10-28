@@ -53,7 +53,7 @@ module.exports = function(grunt) {
     }
   }
 
-  grunt.registerMultiTask('real_favicon', 'Generate a multiplatform favicon with RealFaviconGenerator', function() {
+  var generateFavicon = function() {
     var done = this.async();
     var html_files = this.options().html || [];
 
@@ -108,6 +108,8 @@ module.exports = function(grunt) {
         done();
       });
     });
-  });
+  };
 
+  grunt.registerMultiTask('realFavicon', 'Generate a multiplatform favicon with RealFaviconGenerator', generateFavicon);
+  grunt.registerMultiTask('real_favicon', 'Deprecated, use "realFavicon"', generateFavicon);
 };

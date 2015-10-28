@@ -29,9 +29,11 @@ grunt.loadNpmTasks('grunt-real-favicon');
 In your project's Gruntfile, add a section named `real_favicon` to the data object passed into `grunt.initConfig()`.
 
 ```js
+grunt.loadNpmTasks('grunt-real-favicon');
+
 grunt.initConfig({
-  real_favicon: {
-    my_icon: {
+  realFavicon: {
+    myIcon: {
       // The favicon master picture
       src: 'pics/high_res_logo.png',
       // Directory where the generated pictures will be stored
@@ -293,6 +295,14 @@ module.exports = function(grunt) {
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+### 0.1.2
+
+- Multi-task is now `realFavicon` (`real_favicon` is deprecated).
+
+### 0.1.1
+
+- Use latest version of `rfg-api`.
 
 ### 0.1.0
 
