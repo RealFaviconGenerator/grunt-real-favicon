@@ -89,7 +89,14 @@ module.exports = function(grunt) {
     // Versioning
     request.versioning = rfg.camelCaseToUnderscoreRequest(this.options().versioning);
 
-    rfg.generateFavicon(request, this.data.dest, function(favicon) {
+    rfg.generateFavicon(request, this.data.dest, function(error, favicon) {
+      if (error !== undefined) {
+        grunt.log.error(error);
+        grunt.log.debug("The RFG API request was: " + JSON.stringify(favicon));
+
+        throw error;
+      }
+
       async.each(html_files, function(file, callback) {
         grunt.log.writeln("Process " + file);
 

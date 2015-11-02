@@ -296,6 +296,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.1.3
+
+- Better error reporting (use `--debug` to print the RFG API request).
+
 ### 0.1.2
 
 - Multi-task is now `realFavicon` (`real_favicon` is deprecated).
