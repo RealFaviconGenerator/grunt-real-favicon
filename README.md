@@ -21,6 +21,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.1.4
+
+- Print HTML file name as a debug message, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/19
+
 ### 0.1.3
 
 - Better error reporting (use `--debug` to print the RFG API request).

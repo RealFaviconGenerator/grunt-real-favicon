@@ -101,10 +101,12 @@ module.exports = function(grunt) {
         grunt.log.writeln("Process " + file);
 
         if (! grunt.file.exists(file)) {
+          grunt.log.debug("File '" + file + "' does not exist, create it and populate it with the markups");
           grunt.file.write(file, favicon.favicon.html_code);
           callback();
         }
         else {
+          grunt.log.debug("File '" + file + "' exists, inject markups in it");
           rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
             grunt.file.write(file, code);
             callback();
