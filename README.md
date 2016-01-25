@@ -6,7 +6,7 @@ Generate a multiplatform favicon with [RealFaviconGenerator](http://realfavicong
 
 So you want to use this plugin? Don't write any code. Instead:
 
-- Go to [RealFaviconGenerator](http://realfavicongenerator.net/), submit your original image and craft your icons:
+- Go to [RealFaviconGenerator](http://realfavicongenerator.net/favicon/grunt), submit your original image and craft your icons:
 
 ![RealFaviconGenerator's favicon editor](https://cloud.githubusercontent.com/assets/423852/11236405/b08079a2-8dd9-11e5-8d42-c49943fd1e1f.png)
 
@@ -20,6 +20,10 @@ Et voilà! Your favicon is up and ready.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+### 0.1.5
+
+- Documentation update: link to the dedicated Grunt page.
 
 ### 0.1.4
 
