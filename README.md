@@ -21,6 +21,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.1.7
+
+- Fix in HTML globbing, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/30
+
 ### 0.1.6
 
 - Update peerDependencies to support Grunt 1.0.

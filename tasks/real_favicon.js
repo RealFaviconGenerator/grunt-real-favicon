@@ -97,7 +97,7 @@ module.exports = function(grunt) {
         throw error;
       }
 
-      async.each(html_files, function(file, callback) {
+      async.each(grunt.file.expand({nonull: true}, html_files), function(file, callback) {
         grunt.log.writeln("Process " + file);
 
         if (! grunt.file.exists(file)) {

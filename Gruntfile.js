@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         src: 'test/fixtures/sample_picture_2.png',
         dest: 'tmp/scenario_1',
         options: {
-          html: ['tmp/scenario_1/page1.html', 'tmp/scenario_1/page2.html', 'tmp/scenario_1/standalone.txt'],
+          html: ['tmp/scenario_1/page*.html', 'tmp/scenario_1/standalone.txt'],
           design: {
             desktopBrowser: {},
             ios: {
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         dest: 'tmp/scenario_2',
         options: {
           iconsPath: undefined,
-          html: ['tmp/scenario_2/page1.html', 'tmp/scenario_2/page2.html'],
+          html: ['tmp/scenario_2/page*.html'],
           settings: {
             scalingAlgorithm: 'NearestNeighbor'
           }
