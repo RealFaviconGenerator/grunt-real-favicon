@@ -53,9 +53,21 @@ module.exports = function(grunt) {
     }
   }
 
+  // Handle dynmaic path callback.
+  var writeFile = function (file, content, path, callback) {
+    if (path && typeof callback === 'function') {
+      var regExp = new RegExp(path + '([^"]+)', 'gm');
+      content = content.replace(regExp, function (filename) {
+        return callback.call(this, filename.substr(path.length));
+      });
+    }
+    grunt.file.write(file, content);
+  };
+
   var generateFavicon = function() {
+    var options = this.options();
     var done = this.async();
-    var html_files = this.options().html || [];
+    var html_files = options.html || [];
 
     // Build favicon generation request
     var request = {};
@@ -72,22 +84,30 @@ module.exports = function(grunt) {
     }
     // Path
     request.files_location = {};
-    if (this.options().iconsPath === undefined) {
+    if (options.iconsPath === undefined) {
       request.files_location.type = 'root';
     }
     else {
+      // Allow iconsPath to be a callback function to dynamically generate path.
+      if (typeof options.iconsPath === 'function') {
+        options.iconsPathCallback = options.iconsPath;
+      }
+      // Ensure iconsPath is always set to a special path when iconsPathCallback is present.
+      if (typeof options.iconsPathCallback === 'function') {
+        options.iconsPath = '--RFG-PATH-CALLBACK--/';
+      }
       request.files_location.type = 'path';
-      request.files_location.path = this.options().iconsPath;
+      request.files_location.path = options.iconsPath;
     }
     // Design
     request.favicon_design = normalizeAllMasterPictures(
-      rfg.camelCaseToUnderscoreRequest(this.options().design));
+      rfg.camelCaseToUnderscoreRequest(options.design));
 
     // Settings
-    request.settings = rfg.camelCaseToUnderscoreRequest(this.options().settings);
+    request.settings = rfg.camelCaseToUnderscoreRequest(options.settings);
 
     // Versioning
-    request.versioning = rfg.camelCaseToUnderscoreRequest(this.options().versioning);
+    request.versioning = rfg.camelCaseToUnderscoreRequest(options.versioning);
 
     rfg.generateFavicon(request, this.data.dest, function(error, favicon) {
       if (error !== undefined) {
@@ -102,13 +122,13 @@ module.exports = function(grunt) {
 
         if (! grunt.file.exists(file)) {
           grunt.log.debug("File '" + file + "' does not exist, create it and populate it with the markups");
-          grunt.file.write(file, favicon.favicon.html_code);
+          writeFile(file, favicon.favicon.html_code, options.iconsPath, options.iconsPathCallback)
           callback();
         }
         else {
           grunt.log.debug("File '" + file + "' exists, inject markups in it");
           rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
-            grunt.file.write(file, code);
+            writeFile(file, code, options.iconsPath, options.iconsPathCallback)
             callback();
           });
         }
