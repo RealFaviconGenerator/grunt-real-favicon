@@ -53,17 +53,6 @@ module.exports = function(grunt) {
     }
   }
 
-  // Handle dynmaic path callback.
-  var writeFile = function (file, content, path, callback) {
-    if (path && typeof callback === 'function') {
-      var regExp = new RegExp(path + '([^"]+)', 'gm');
-      content = content.replace(regExp, function (filename) {
-        return callback.call(this, filename.substr(path.length));
-      });
-    }
-    grunt.file.write(file, content);
-  };
-
   var generateFavicon = function() {
     var options = this.options();
     var done = this.async();
@@ -82,6 +71,7 @@ module.exports = function(grunt) {
       request.master_picture.type = 'inline';
       request.master_picture.content = rfg.fileToBase64Sync(this.data.src);
     }
+
     // Path
     request.files_location = {};
     if (options.iconsPath === undefined) {
@@ -94,11 +84,12 @@ module.exports = function(grunt) {
       }
       // Ensure iconsPath is always set to a special path when iconsPathCallback is present.
       if (typeof options.iconsPathCallback === 'function') {
-        options.iconsPath = '--RFG-PATH-CALLBACK--/';
+        options.iconsPath = '/--RFG-PATH-CALLBACK--/';
       }
       request.files_location.type = 'path';
       request.files_location.path = options.iconsPath;
     }
+
     // Design
     request.favicon_design = normalizeAllMasterPictures(
       rfg.camelCaseToUnderscoreRequest(options.design));
@@ -120,18 +111,24 @@ module.exports = function(grunt) {
       async.each(grunt.file.expand({nonull: true}, html_files), function(file, callback) {
         grunt.log.writeln("Process " + file);
 
-        if (! grunt.file.exists(file)) {
-          grunt.log.debug("File '" + file + "' does not exist, create it and populate it with the markups");
-          writeFile(file, favicon.favicon.html_code, options.iconsPath, options.iconsPathCallback)
+        // Create a blank file if it does not exist.
+        if (!grunt.file.exists(file)) {
+          grunt.log.debug('The file "' + file + '" does not exist, creating blank file.');
+          grunt.file.write(file, '');
+        }
+
+        grunt.log.debug('Injecting markup into file: ' + file);
+        rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
+          // Handle dynmaic path callback.
+          if (options.iconsPath && typeof options.iconsPathCallback === 'function') {
+            var regExp = new RegExp(options.iconsPath + '([^"]+)', 'gm');
+            code = code.replace(regExp, function (match, filename) {
+              return options.iconsPathCallback.call(this, filename);
+            });
+          }
+          grunt.file.write(file, code);
           callback();
-        }
-        else {
-          grunt.log.debug("File '" + file + "' exists, inject markups in it");
-          rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
-            writeFile(file, code, options.iconsPath, options.iconsPathCallback)
-            callback();
-          });
-        }
+        });
       },
       function() {
         done();
