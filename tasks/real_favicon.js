@@ -10,8 +10,9 @@
 
 module.exports = function(grunt) {
 
-  var rfg = require('rfg-api').init(grunt);
   var async = require('async');
+  var path = require('path');
+  var rfg = require('rfg-api').init(grunt);
 
   function startsWith(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
@@ -120,18 +121,16 @@ module.exports = function(grunt) {
       // Indicate success.
       grunt.log.ok();
 
-      // Handle dynamic iconsPathCallback in browserconfig.xml and manifest.json.
+      // Handle dynamic iconsPathCallback for static "json" and "xml" files.
       if (options.iconsPathCallback && options.iconsPathRegExp) {
-        var config = [destination + '/browserconfig.xml', destination + '/manifest.json'];
-        var contents;
-        for (var i = 0, l = config.length; i < l; i++) {
-          if (grunt.file.exists(config[i])) {
-            grunt.log.debug('Post processing "' + config[i] + '"...');
-            contents = grunt.file.read(config[i]);
-            grunt.file.write(config[i], contents.replace(options.iconsPathRegExp, function (match, href) {
-              return options.iconsPathCallback.call(this, href, config[i]);
-            }));
-          }
+        var metaFiles = grunt.file.expand({cwd: destination, filter: 'isFile', matchBase: true, nonull: true}, ['*.json', '*.xml']);
+        for (var i = 0, l = metaFiles.length; i < l; i++) {
+          var file = path.join(destination, metaFiles[i]);
+          grunt.verbose.writeln('Post processing "' + metaFiles[i] + '"...');
+          var content = grunt.file.read(file);
+          grunt.file.write(file, content.replace(options.iconsPathRegExp, function (match, href) {
+            return options.iconsPathCallback.call(this, href, file);
+          }));
         }
       }
 
