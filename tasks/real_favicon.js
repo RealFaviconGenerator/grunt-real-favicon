@@ -10,8 +10,9 @@
 
 module.exports = function(grunt) {
 
-  var rfg = require('rfg-api').init(grunt);
   var async = require('async');
+  var path = require('path');
+  var rfg = require('rfg-api').init(grunt);
 
   function startsWith(str, prefix) {
     return str.lastIndexOf(prefix, 0) === 0;
@@ -54,64 +55,103 @@ module.exports = function(grunt) {
   }
 
   var generateFavicon = function() {
+    var options = this.options();
+    var source = this.data.src;
+    var destination = this.data.dest;
     var done = this.async();
-    var html_files = this.options().html || [];
+    var html_files = options.html || [];
 
     // Build favicon generation request
     var request = {};
     request.api_key = 'f26d432783a1856427f32ed8793e1d457cc120f1';
     // Master picture
     request.master_picture = {};
-    if (isUrl(this.data.src)) {
+    if (isUrl(source)) {
       request.master_picture.type = 'url';
-      request.master_picture.url = this.data.src;
+      request.master_picture.url = source;
     }
     else {
       request.master_picture.type = 'inline';
-      request.master_picture.content = rfg.fileToBase64Sync(this.data.src);
+      request.master_picture.content = rfg.fileToBase64Sync(source);
     }
+
     // Path
     request.files_location = {};
-    if (this.options().iconsPath === undefined) {
+    if (options.iconsPath === undefined) {
       request.files_location.type = 'root';
     }
     else {
+      // Allow iconsPath to be a callback function to dynamically generate path.
+      if (typeof options.iconsPath === 'function') {
+        options.iconsPathCallback = options.iconsPath;
+      }
+
+      // Ensure iconsPath is always set to a special path when iconsPathCallback is present.
+      if (typeof options.iconsPathCallback === 'function') {
+        options.iconsPath = '{{RFG-PATH-CALLBACK}}';
+
+        // Create a regular expression to use for iconsPathCallback.
+        options.iconsPathRegExp = new RegExp(options.iconsPath + '([^"]+)', 'gm');
+      }
+
       request.files_location.type = 'path';
-      request.files_location.path = this.options().iconsPath;
+      request.files_location.path = options.iconsPath;
     }
+
     // Design
     request.favicon_design = normalizeAllMasterPictures(
-      rfg.camelCaseToUnderscoreRequest(this.options().design));
+      rfg.camelCaseToUnderscoreRequest(options.design));
 
     // Settings
-    request.settings = rfg.camelCaseToUnderscoreRequest(this.options().settings);
+    request.settings = rfg.camelCaseToUnderscoreRequest(options.settings);
 
     // Versioning
-    request.versioning = rfg.camelCaseToUnderscoreRequest(this.options().versioning);
+    request.versioning = rfg.camelCaseToUnderscoreRequest(options.versioning);
 
-    rfg.generateFavicon(request, this.data.dest, function(error, favicon) {
+    grunt.log.write('Generating "' + source + '" favicon...');
+    rfg.generateFavicon(request, destination, function(error, favicon) {
+      // Indicate error.
       if (error !== undefined) {
+        grunt.log.warn();
         grunt.log.error(error);
         grunt.log.debug("The RFG API request was: " + JSON.stringify(favicon));
-
         throw error;
       }
 
-      async.each(grunt.file.expand({nonull: true}, html_files), function(file, callback) {
-        grunt.log.writeln("Process " + file);
+      // Indicate success.
+      grunt.log.ok();
 
-        if (! grunt.file.exists(file)) {
-          grunt.log.debug("File '" + file + "' does not exist, create it and populate it with the markups");
-          grunt.file.write(file, favicon.favicon.html_code);
+      // Handle dynamic iconsPathCallback for static "json" and "xml" files.
+      if (options.iconsPathCallback && options.iconsPathRegExp) {
+        var metaFiles = grunt.file.expand({cwd: destination, filter: 'isFile', matchBase: true, nonull: true}, ['*.json', '*.xml']);
+        for (var i = 0, l = metaFiles.length; i < l; i++) {
+          var file = path.join(destination, metaFiles[i]);
+          grunt.verbose.writeln('Post processing "' + metaFiles[i] + '"...');
+          var content = grunt.file.read(file);
+          grunt.file.write(file, content.replace(options.iconsPathRegExp, function (match, href) {
+            return options.iconsPathCallback.call(this, href, file);
+          }));
+        }
+      }
+
+      async.each(grunt.file.expand({nonull: true}, html_files), function(file, callback) {
+        // Create a blank file if it does not exist.
+        if (!grunt.file.exists(file)) {
+          grunt.log.debug('The file "' + file + '" does not exist, creating the file so markup can be injected.');
+          grunt.file.write(file, '');
+        }
+
+        grunt.log.writeln('Injecting markup into file: ' + file);
+        rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
+          // Handle dynamic iconPathsCallback.
+          if (options.iconsPathCallback && options.iconsPathRegExp) {
+            code = code.replace(options.iconsPathRegExp, function (match, href) {
+              return options.iconsPathCallback.call(this, href, file);
+            });
+          }
+          grunt.file.write(file, code);
           callback();
-        }
-        else {
-          grunt.log.debug("File '" + file + "' exists, inject markups in it");
-          rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
-            grunt.file.write(file, code);
-            callback();
-          });
-        }
+        });
       },
       function() {
         done();

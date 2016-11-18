@@ -64,6 +64,10 @@ module.exports = function(grunt) {
         dest: 'tmp/scenario_1',
         options: {
           html: ['tmp/scenario_1/page*.html', 'tmp/scenario_1/standalone.txt'],
+          iconsPathCallback: function(match, href) {
+            grunt.verbose.writeln('Callback with ' + match + " and " + href);
+            return match.toUpperCase();
+          },
           design: {
             desktopBrowser: {},
             ios: {
