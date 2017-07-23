@@ -143,7 +143,7 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Injecting markup into file: ' + file);
         
-        injectFaviconArgs = {}
+        var injectFaviconArgs = {}
         if(options.keep !== undefined){
           injectFaviconArgs.keep = options.keep;
         }
