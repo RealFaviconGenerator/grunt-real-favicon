@@ -142,7 +142,12 @@ module.exports = function(grunt) {
         }
 
         grunt.log.writeln('Injecting markup into file: ' + file);
-        rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
+        
+        if(options.keep === undefined){
+          options.keep = {};
+        }
+      
+        rfg.injectFaviconMarkups(grunt.file.read(file), favicon.favicon.html_code, options.keep, function(error, code) {
           // Handle dynamic iconPathsCallback.
           if (options.iconsPathCallback && options.iconsPathRegExp) {
             code = code.replace(options.iconsPathRegExp, function (match, href) {

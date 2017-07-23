@@ -1,7 +1,7 @@
 {
   "name": "grunt-real-favicon",
   "description": "Generate a multiplatform favicon with RealFaviconGenerator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/RealFaviconGenerator/grunt-real-favicon",
   "author": {
     "name": "Philippe Bernard",
@@ -25,7 +25,7 @@
     "async": "^1.4.2",
     "fstream": "^1.0.2",
     "node-rest-client": "^1.0.0",
-    "rfg-api": "0.0.3"
+    "rfg-api": "0.3.0"
   },
   "devDependencies": {
     "cheerio": "^0.19.0",
