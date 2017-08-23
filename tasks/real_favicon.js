@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 
   var async = require('async');
   var path = require('path');
+  var fs = require('fs');
   var rfg = require('rfg-api').init(grunt);
 
   function startsWith(str, prefix) {
@@ -142,7 +143,7 @@ module.exports = function(grunt) {
         }
 
         grunt.log.writeln('Injecting markup into file: ' + file);
-        rfg.injectFaviconMarkups(file, favicon.favicon.html_code, {}, function(error, code) {
+        rfg.injectFaviconMarkups(fs.readFileSync(file, 'utf8'), favicon.favicon.html_code, {}, function(error, code) {
           // Handle dynamic iconPathsCallback.
           if (options.iconsPathCallback && options.iconsPathRegExp) {
             code = code.replace(options.iconsPathRegExp, function (match, href) {
