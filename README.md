@@ -21,6 +21,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### 0.2.2
+
+- Fix for incompatible change in latest rfg-api, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/41
+
 ### 0.2.1
 
 - Use the latest rfg-api, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/40
