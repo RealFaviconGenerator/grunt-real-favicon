@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 
   var async = require('async');
   var path = require('path');
+  var fs = require('fs');
   var rfg = require('rfg-api').init(grunt);
 
   function startsWith(str, prefix) {
