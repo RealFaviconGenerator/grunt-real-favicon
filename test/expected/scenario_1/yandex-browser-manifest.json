@@ -1,9 +1,9 @@
 {
-	"version": "1.0",
-	"api_version": 1,
-	"layout": {
-		"logo": "/YANDEX-BROWSER-50X50.PNG",
-		"color": "#ab56cd",
-		"show_title": true
-	}
+    "version": "1.0",
+    "api_version": 1,
+    "layout": {
+        "logo": "/YANDEX-BROWSER-50X50.PNG",
+        "color": "#ab56cd",
+        "show_title": true
+    }
 }

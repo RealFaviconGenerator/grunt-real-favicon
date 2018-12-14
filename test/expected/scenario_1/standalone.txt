@@ -7,10 +7,10 @@
 <link rel="apple-touch-icon" sizes="144x144" href="/APPLE-TOUCH-ICON-144X144.PNG">
 <link rel="apple-touch-icon" sizes="152x152" href="/APPLE-TOUCH-ICON-152X152.PNG">
 <link rel="apple-touch-icon" sizes="180x180" href="/APPLE-TOUCH-ICON-180X180.PNG">
-<link rel="icon" type="image/png" href="/FAVICON-32X32.PNG" sizes="32x32">
-<link rel="icon" type="image/png" href="/FAVICON-230X230.PNG" sizes="230x230">
-<link rel="icon" type="image/png" href="/COAST-228X228.PNG" sizes="228x228">
-<link rel="icon" type="image/png" href="/FAVICON-16X16.PNG" sizes="16x16">
+<link rel="icon" type="image/png" sizes="32x32" href="/FAVICON-32X32.PNG">
+<link rel="icon" type="image/png" sizes="230x230" href="/FAVICON-230X230.PNG">
+<link rel="icon" type="image/png" sizes="228x228" href="/COAST-228X228.PNG">
+<link rel="icon" type="image/png" sizes="16x16" href="/FAVICON-16X16.PNG">
 <link rel="shortcut icon" href="/FAVICON.ICO">
 <link rel="yandex-tableau-widget" href="/YANDEX-BROWSER-MANIFEST.JSON">
 <meta property="og:image" content="http://example.com/OPEN-GRAPH.PNG">

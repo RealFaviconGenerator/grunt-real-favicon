@@ -1,14 +1,14 @@
 {
-	"version": "1.0",
-	"name": "Sample app",
-	"description": " Oh my sample app",
-	"icons": {
-		"60": "\/yet\/another\/path\/firefox_app_60x60.png?theVersion=123456",
-		"128": "\/yet\/another\/path\/firefox_app_128x128.png?theVersion=123456",
-		"512": "\/yet\/another\/path\/firefox_app_512x512.png?theVersion=123456"
-	},
-	"developer": {
-		"name": "Philippe",
-		"url": "http:\/\/philippebernard.fr"
-	}
+    "version": "1.0",
+    "name": "Sample app",
+    "description": " Oh my sample app",
+    "icons": {
+        "60": "/yet/another/path/firefox_app_60x60.png?theVersion=123456",
+        "128": "/yet/another/path/firefox_app_128x128.png?theVersion=123456",
+        "512": "/yet/another/path/firefox_app_512x512.png?theVersion=123456"
+    },
+    "developer": {
+        "name": "Philippe",
+        "url": "http://philippebernard.fr"
+    }
 }

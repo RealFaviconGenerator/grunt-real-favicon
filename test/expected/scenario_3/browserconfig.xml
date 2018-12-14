@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <browserconfig>
-  <msapplication>
-    <tile>
-      <square70x70logo src="/yet/another/path/mstile-70x70.png?theVersion=123456"/>
-      <square150x150logo src="/yet/another/path/mstile-150x150.png?theVersion=123456"/>
-      <square310x310logo src="/yet/another/path/mstile-310x310.png?theVersion=123456"/>
-      <wide310x150logo src="/yet/another/path/mstile-310x150.png?theVersion=123456"/>
-      <TileColor>#aabbcc</TileColor>
-    </tile>
-  </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src="/yet/another/path/mstile-70x70.png?theVersion=123456"/>
+            <square150x150logo src="/yet/another/path/mstile-150x150.png?theVersion=123456"/>
+            <square310x310logo src="/yet/another/path/mstile-310x310.png?theVersion=123456"/>
+            <wide310x150logo src="/yet/another/path/mstile-310x150.png?theVersion=123456"/>
+            <TileColor>#aabbcc</TileColor>
+        </tile>
+    </msapplication>
 </browserconfig>
