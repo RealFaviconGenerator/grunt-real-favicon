@@ -21,6 +21,14 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+## 0.2.3
+ - support keep options, to keep og:image ( for example ) resolve https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/24
+    ```
+    options: {
+      keep: ['meta[property="og:image"]'],
+      ...
+    }
+    ```
 ### 0.2.2
 
 - Fix for incompatible change in latest rfg-api, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/41

@@ -112,7 +112,8 @@ module.exports = function(grunt) {
           html: ['tmp/scenario_2/page*.html'],
           settings: {
             scalingAlgorithm: 'NearestNeighbor'
-          }
+          },
+          keep: ['meta[property="og:image"]']
         }
       },
       scenario_3: {

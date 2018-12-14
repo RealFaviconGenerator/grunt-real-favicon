@@ -143,7 +143,13 @@ module.exports = function(grunt) {
         }
 
         grunt.log.writeln('Injecting markup into file: ' + file);
-        rfg.injectFaviconMarkups(fs.readFileSync(file, 'utf8'), favicon.favicon.html_code, {}, function(error, code) {
+        
+        var injectFaviconArgs = {};
+        if (options.keep !== undefined) {
+          injectFaviconArgs.keep = options.keep;
+        }
+      
+        rfg.injectFaviconMarkups(grunt.file.read(file), favicon.favicon.html_code, injectFaviconArgs, function(error, code) {
           // Handle dynamic iconPathsCallback.
           if (options.iconsPathCallback && options.iconsPathRegExp) {
             code = code.replace(options.iconsPathRegExp, function (match, href) {
