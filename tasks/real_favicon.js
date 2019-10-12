@@ -122,9 +122,14 @@ module.exports = function(grunt) {
       // Indicate success.
       grunt.log.ok();
 
-      // Handle dynamic iconsPathCallback for static "json" and "xml" files.
+      // Provide default meta files.
+      if (options.metaFiles === undefined) {
+        options.metaFiles = ['*.json', '*.xml', '*.webmanifest', '*.manifest'];
+      }
+
+      // Handle dynamic iconsPathCallback for meta files.
       if (options.iconsPathCallback && options.iconsPathRegExp) {
-        var metaFiles = grunt.file.expand({cwd: destination, filter: 'isFile', matchBase: true, nonull: true}, ['*.json', '*.xml']);
+        var metaFiles = grunt.file.expand({cwd: destination, filter: 'isFile', matchBase: true, nonull: true}, options.metaFiles);
         for (var i = 0, l = metaFiles.length; i < l; i++) {
           var file = path.join(destination, metaFiles[i]);
           grunt.verbose.writeln('Post processing "' + metaFiles[i] + '"...');
