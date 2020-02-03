@@ -148,7 +148,10 @@ module.exports = function(grunt) {
         if (options.keep !== undefined) {
           injectFaviconArgs.keep = options.keep;
         }
-      
+        if (favicon.favicon.overlapping_markups) {
+          injectFaviconArgs.remove = favicon.favicon.overlapping_markups;
+        }
+
         rfg.injectFaviconMarkups(grunt.file.read(file), favicon.favicon.html_code, injectFaviconArgs, function(error, code) {
           // Handle dynamic iconPathsCallback.
           if (options.iconsPathCallback && options.iconsPathRegExp) {

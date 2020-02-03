@@ -40,7 +40,8 @@ module.exports = function(grunt) {
           ios: {
             pictureAspect: 'backgroundAndMargin',
             backgroundColor: '#ff55cc',
-            margin: 4
+            margin: 4,
+            app_name: 'Sample App'
           },
           windows: {
             masterPicture: {
