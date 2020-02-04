@@ -21,6 +21,13 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+## 0.2.4
+
+- Update axios and lodash, see https://github.com/RealFaviconGenerator/grunt-real-favicon/pull/52 and https://github.com/RealFaviconGenerator/grunt-real-favicon/pull/50
+- Use the latest rfg-api, see https://github.com/RealFaviconGenerator/grunt-real-favicon/pull/48
+- Support for site.webmanifest, see https://github.com/RealFaviconGenerator/grunt-real-favicon/pull/47
+- Support overlapping_markups, see https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/27
+
 ## 0.2.3
  - support keep options, to keep og:image ( for example ) resolve https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/24
     ```
